@@ -1,7 +1,8 @@
-import { RenderKeys } from "./ts/RenderKeys";
+import { RenderKeys } from './ts/RenderKeys';
+import { Keyboard } from './ts/KeyBoard';
 
-new RenderKeys()
-
+new RenderKeys();
+new Keyboard();
 
 // const textarea = document.querySelector('#textarea') as HTMLTextAreaElement;
 // const button = document.querySelector('button') as HTMLButtonElement;
@@ -51,5 +52,3 @@ new RenderKeys()
 //   `
 //   console.log(a);
 // })
-
-
