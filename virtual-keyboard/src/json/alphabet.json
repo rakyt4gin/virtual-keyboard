@@ -48,7 +48,7 @@
       "ru":{
         "default": "2",
         "shift": "\"",
-        "caps": "",
+        "caps": "2",
         "shiftCaps": "\""
       }
     }
@@ -814,10 +814,10 @@
     "code": "KeyC",
     "lang": {
       "en": {
-        "default": "с",
-        "shift": "С",
-        "caps": "С",
-        "shiftCaps": "с"
+        "default": "c",
+        "shift": "C",
+        "caps": "C",
+        "shiftCaps": "c"
       },
       "ru":{
         "default": "c",
