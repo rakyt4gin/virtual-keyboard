@@ -153,13 +153,13 @@ class Keyboard {
     let targetClass;
     if (target) {
       targetClass = target.classList[1];
+      const action: actionType = {
+        type: reducerActionTypes.UPDATE_CURRET_LETTER,
+        payload: targetClass,
+      };
+      this.reducer(action);
+      this.renderLetter();
     }
-    const action: actionType = {
-      type: reducerActionTypes.UPDATE_CURRET_LETTER,
-      payload: targetClass,
-    };
-    this.reducer(action);
-    this.renderLetter();
   }
 
   changeLetterStatus(status: string) {
