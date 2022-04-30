@@ -1,6 +1,9 @@
 import { Idata } from '../types/types';
 import data from '../json/alphabet.json';
-const currentLang: 'ru' | 'en' = localStorage.getItem('lang') as 'ru' | 'en' ? localStorage.getItem('lang') as 'ru' | 'en' : 'en';
+
+const currentLang: 'ru' | 'en' = (localStorage.getItem('lang') as 'ru' | 'en')
+  ? (localStorage.getItem('lang') as 'ru' | 'en')
+  : 'en';
 
 class RenderKeys {
   constructor() {

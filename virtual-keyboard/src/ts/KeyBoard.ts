@@ -1,6 +1,9 @@
 import data from '../json/alphabet.json';
 import { Idata } from '../types/types';
-const currentLang: 'ru' | 'en' = localStorage.getItem('lang') as 'ru' | 'en' ? localStorage.getItem('lang') as 'ru' | 'en' : 'en';
+
+const currentLang: 'ru' | 'en' = (localStorage.getItem('lang') as 'ru' | 'en')
+  ? (localStorage.getItem('lang') as 'ru' | 'en')
+  : 'en';
 
 enum reducerActionTypes {
   UPDATE_CURRET_LETTER = 'UPDATE_CURRET_LETTER',
@@ -12,8 +15,8 @@ type stateType = {
   currentLang: 'ru' | 'en';
   currentLetterState: 'default' | 'shift' | 'caps' | 'shiftCaps';
   currentLetterKey: string | null;
-  firstStepOfChangeLang: boolean,
-  secondStepOfChangeLang: boolean,
+  firstStepOfChangeLang: boolean;
+  secondStepOfChangeLang: boolean;
   cursorPosition: number;
 };
 
@@ -32,11 +35,10 @@ class Keyboard {
   textarea: HTMLTextAreaElement;
 
   constructor() {
-    console.log(currentLang);
     this.state = {
-      currentLang: currentLang,
-      firstStepOfChangeLang:false,
-      secondStepOfChangeLang:false,
+      currentLang,
+      firstStepOfChangeLang: false,
+      secondStepOfChangeLang: false,
       currentLetterKey: null,
       currentLetterState: 'default',
       cursorPosition: 0,
@@ -49,24 +51,27 @@ class Keyboard {
     this.data = data;
   }
 
-  changeLanguage(){
-    if(this.state.firstStepOfChangeLang == true && this.state.secondStepOfChangeLang == true){
+  changeLanguage() {
+    if (
+      this.state.firstStepOfChangeLang == true &&
+      this.state.secondStepOfChangeLang == true
+    ) {
       const currentLangArray1 = this.keyboard?.querySelectorAll(
         `.lang_${this.state.currentLang}`
       );
       currentLangArray1?.forEach((item) => {
-        item.classList.add('hidden')
+        item.classList.add('hidden');
       });
-     this.reducer({
-       type: reducerActionTypes.UPDATE_CURENT_LETTER_LANG,
-       payload: this.state.currentLang === 'en' ? 'ru' : 'en'
-     })
-     localStorage.setItem('lang', this.state.currentLang)
+      this.reducer({
+        type: reducerActionTypes.UPDATE_CURENT_LETTER_LANG,
+        payload: this.state.currentLang === 'en' ? 'ru' : 'en',
+      });
+      localStorage.setItem('lang', this.state.currentLang);
       const currentLangArray2 = this.keyboard?.querySelectorAll(
         `.lang_${this.state.currentLang}`
       );
       currentLangArray2?.forEach((item) => {
-        item.classList.remove('hidden')
+        item.classList.remove('hidden');
       });
     }
   }
@@ -83,13 +88,13 @@ class Keyboard {
         payload: this.checkLetterStatus('shiftUp'),
       });
     }
-    if(e.code === 'ControlLeft' || e.code === 'ControlRight'){
-      this.state.firstStepOfChangeLang = false
+    if (e.code === 'ControlLeft' || e.code === 'ControlRight') {
+      this.state.firstStepOfChangeLang = false;
     }
-    if(e.code === 'AltLeft' || e.code === 'AltRight'){
-      this.state.secondStepOfChangeLang = false
+    if (e.code === 'AltLeft' || e.code === 'AltRight') {
+      this.state.secondStepOfChangeLang = false;
     }
-    this.changeLanguage()
+    this.changeLanguage();
   }
 
   handlekeyDownClick(e: KeyboardEvent) {
@@ -103,11 +108,11 @@ class Keyboard {
     );
     this.reducer(action);
     this.renderLetter();
-    if(e.code === 'ControlLeft' || e.code === 'ControlRight'){
-      this.state.firstStepOfChangeLang = true
+    if (e.code === 'ControlLeft' || e.code === 'ControlRight') {
+      this.state.firstStepOfChangeLang = true;
     }
-    if(e.code === 'AltLeft' || e.code === 'AltRight'){
-      this.state.secondStepOfChangeLang = true
+    if (e.code === 'AltLeft' || e.code === 'AltRight') {
+      this.state.secondStepOfChangeLang = true;
     }
     if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') {
       this.reducer({
@@ -115,10 +120,12 @@ class Keyboard {
         payload: this.checkLetterStatus('shiftDown'),
       });
     }
-    this.changeLanguage()
+    this.changeLanguage();
   }
 
-  checkLetterStatus(code: 'default' | 'shiftDown' |'shiftUp' | 'caps' | 'shiftCaps') {
+  checkLetterStatus(
+    code: 'default' | 'shiftDown' | 'shiftUp' | 'caps' | 'shiftCaps'
+  ) {
     if (this.state.currentLetterState === 'default') {
       if (code == 'shiftDown') return 'shift';
       return code;
@@ -143,8 +150,8 @@ class Keyboard {
     const target = (e.target as HTMLDivElement).closest(
       '.keyboard__key'
     ) as HTMLDivElement;
-    let targetClass
-    if(target){
+    let targetClass;
+    if (target) {
       targetClass = target.classList[1];
     }
     const action: actionType = {
@@ -207,7 +214,7 @@ class Keyboard {
     const target = (e.target as HTMLDivElement).closest(
       '.keyboard__key'
     ) as HTMLDivElement;
-    if(target){
+    if (target) {
       if (!target.classList.contains('CapsLock')) {
         target.classList.remove('active');
       }
@@ -218,7 +225,7 @@ class Keyboard {
     const target = (e.target as HTMLDivElement).closest(
       '.keyboard__key'
     ) as HTMLDivElement;
-    if(target){
+    if (target) {
       target.classList.add('active');
     }
   }
